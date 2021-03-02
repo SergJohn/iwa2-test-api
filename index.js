@@ -1,8 +1,28 @@
 const http = require('http'); 
+const express = require('express');
+const bodyParser = require('body-parser');
 const axios = require('axios'); 
+const logger = require('morgan');
+const cors = require('cors');
+
+var app = express();
+var port = 8000;
+
+app.use(bodyParser.json());
+
+app.get('/hello', (req, res) => {
+    res.json({characteres: characteres});
+});
+
+app.get('/hello/:foo/:bar', (req, res) => {
+    res.json({message: 'Hello BScBest!', data: [
+        req.params.foo,
+        req.params.bar
+    ]});
+}); 
+app.listen(port);
 
 // first external API
-
 let users = [];
 let emails = [];
 (async function getNames(){
@@ -20,7 +40,6 @@ let emails = [];
 
 // second external API
 // endpoint https://swapi.dev/api/people 
-
 let characteres = [];
 (async function getCharacteres(){
     try {
@@ -42,12 +61,12 @@ let characteres = [];
     
 })();
 
-http.createServer((req, res)=>{ 
-    // res.write(users.join("\n"));
-    // res.write('\n\n' + emails.join('\n')); 
-    res.write(characteres.join("\n"));
-    res.end();
-}).listen(8000); 
+// http.createServer((req, res)=>{ 
+//     // res.write(users.join("\n"));
+//     // res.write('\n\n' + emails.join('\n')); 
+//     res.write(characteres.join("\n"));
+//     res.end();
+// }).listen(8000); 
 
 // snippet of code
 // axios.get("https://jsonplaceholder.typicode.com/users")
