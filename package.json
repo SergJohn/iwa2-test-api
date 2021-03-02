@@ -19,6 +19,7 @@
   "homepage": "https://github.com/SergJohn/iwa2-test-api#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "http": "^0.0.1-security"
+    "http": "^0.0.1-security",
+    "nodemon": "^2.0.7"
   }
 }
