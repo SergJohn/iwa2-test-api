@@ -9,21 +9,8 @@ var app = express();
 var port = 8000;
 
 app.use(bodyParser.json());
-
-app.get('/hello', (req, res) => {
-    res.json({characteres: characteres});
-});
-
-app.get('/hello/:foo/:bar', (req, res) => {
-    res.json({message: 'Hello BScBest!', data: [
-        req.params.foo,
-        req.params.bar
-    ]});
-});
-
-app.post('/hello', (req, res) => {
-    res.json({result: 'Post was sent', data: req.body});
-});
+app.use(logger('tiny'));
+app.use(require('./routes'));
 
 app.listen(port);
 
