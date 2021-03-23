@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios'); 
 const logger = require('morgan');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
 var app = express();
 var port = 8000;
@@ -11,6 +12,21 @@ var port = 8000;
 app.use(bodyParser.json());
 app.use(logger('tiny'));
 app.use(require('./routes'));
+
+// mongoose connection
+const dbURI = "mongodb://localhost/test";
+
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+        .then((result) => console.log('connected to db'))
+        .catch((err) => console.log(err));
+
+mongoose.connection.on('error', (err) => { 
+    console.log('Mongodb Error: ', err); 
+    process.exit();
+});
+mongoose.connection.on('connected', () => { 
+    console.log('MongoDB is successfully connected');
+});
 
 app.listen(port);
 
