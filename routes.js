@@ -4,14 +4,26 @@ router = express.Router();
 var itemCtrl = require('./item-controller');
 var userCtrl = require('./user-controller');
 
+// GET
 router.get('/hello', itemCtrl.getWorld);
+
+router.get('/users', userCtrl.getUsers);
+
+router.get('/users/:id', userCtrl.getUser);
 
 router.get('/hello/:foo/:bar', itemCtrl.getWorldParams);
 
+// POST
 router.post('/hello', itemCtrl.postWorld);
 
-// calling external API from Controller
+router.post('/users', userCtrl.createUser);
 
+// PUT
+router.put('users/:id', userCtrl.updateUser);
+
+router.delete('users/:id', userCtrl.deleteUser);
+
+// calling external API from Controller
 router.get('/characters', itemCtrl.getCharacters);
 
 module.exports = router;
