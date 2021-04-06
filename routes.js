@@ -26,4 +26,10 @@ router.delete('users/:id', userCtrl.deleteUser);
 // calling external API from Controller
 router.get('/characters', itemCtrl.getCharacters);
 
+module.exports.UPLOAD_PATH = "uploads";
+
+var multer = require("multer");
+var upload = multer({dest: module.exports.UPLOAD_PATH});
+var imageCtrl = require('./image-controller');
+
 module.exports = router;
