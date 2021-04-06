@@ -19,3 +19,18 @@ exports.uploadImage = function(req, res){
     });
 
 }
+
+exports.getImages = function(req, res) {
+    Image.find({}, '-__v').lean().exec((err, images => {
+        if (err) {
+            return res.sendStatus(400);
+        }
+
+        for (let i = 0; i < images.length; i++) {
+            var img = images[i];
+            img.url = req.protocol + '://' + req.get('host') + '/images/' + img._id;
+        }
+        res.json(images);
+    })
+    )
+}
