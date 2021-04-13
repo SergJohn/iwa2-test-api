@@ -5,16 +5,19 @@ const axios = require('axios');
 const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 var app = express();
 var port = 8000;
 
+dotenv.config();
 app.use(bodyParser.json());
 app.use(logger('tiny'));
 app.use(require('./routes'));
 
 // mongoose connection
-const dbURI = "mongodb://localhost/test";
+// const dbURI = "mongodb://localhost/test";
+const dbURI = process.env.DB_URL;
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
         .then((result) => console.log('connected to db'))
